@@ -1,0 +1,48 @@
+<section class=" bg-main-light rounded-4 my-4 p-2 shadow w-50 mx-auto">
+  <h1 class="h2 text-main"> Login Now:</h1>
+<form [formGroup]="LoginForm" (ngSubmit)="LoginSubmit()">
+    <div class="mt-2">
+    <label for="email">Email</label>
+    <input formControlName="email" type="email" class="form-control" id="email">
+
+
+         @if (LoginForm.get("email")?.errors && LoginForm.get("email")?.touched) {
+      <div class="alert alert-danger my-1  w-50">
+          @if (LoginForm.get('email')?.getError('required')) {
+            <p class="m-0">email is required</p>
+
+          }
+          @else if (LoginForm.get('email')?.getError('email')) {
+            <p class="m-0">email is not valid</p>
+          }
+      </div>
+    }
+  </div>
+
+    <div class="mt-2">
+    <label for="password">password</label>
+    <input formControlName="password" type="password" class="form-control" id="password">
+               @if (LoginForm.get("password")?.errors && LoginForm.get("password")?.touched) {
+      <div class="alert alert-danger my-1  w-50">
+          @if (LoginForm.get('password')?.getError('required')) {
+            <p class="m-0">pass is required</p>
+
+          }
+          @else if (LoginForm.get('password')?.getError('pattern')) {
+            <p class="m-0">pass is not valid</p>
+          }
+      </div>
+    }
+  </div>
+
+    <button type="submit" class="btn-main my-2 ms-auto d-block"> Login @if (isLoding) { <i class="fas fa-spin fa-spinner"></i>}</button>
+   @if (errMassage) {
+     <p class="alert alert-danger p-0 text-center text-danger-emphasis m-0 w-50" >{{errMassage}}</p>
+
+   }
+        @if (sucssesMsg) {
+         <p class="alert alert-danger p-0 text-center text-danger-emphasis m-0 w-50" >Lorem, ipsum dolor.</p>
+
+   }
+</form>
+</section>

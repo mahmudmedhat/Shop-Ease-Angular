@@ -1,1 +1,32 @@
-<p>product-details works!</p>
+@if (getSingelProduct) {
+  <section class="my-5">
+  <h1 class="text-center text-main my-2">Product Detailes</h1>
+  <div class="row align-items-center">
+    <div class="col-md-3">
+      <div>
+        <img class="w-100" [src]="getSingelProduct.imageCover" [alt]="getSingelProduct.title">
+      </div>
+    </div>
+    <div class="col-md-8">
+      <h2>{{getSingelProduct.title}}</h2>
+      <p class="text-muted">{{getSingelProduct.description}}</p>
+      <h3 class="h6">{{getSingelProduct.category.name}}</h3>
+      <div class="d-flex justify-content-between align-items-center">
+
+        <span>{{getSingelProduct.price}}</span>
+
+        <div class="rating">
+
+          @for (item of [1,2,3,4,5].slice(0,getSingelProduct.ratingsAverage); track $index) {
+          <span><i class="fas fa-star rating-color"></i></span>
+          }
+          <span class="text-muted">{{getSingelProduct.ratingsAverage}}</span>
+        </div>
+      </div>
+      <button class="btn-main d-block mx-auto w-100 ">Add to Cart</button>
+    </div>
+  </div>
+
+</section>
+
+}

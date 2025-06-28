@@ -34,8 +34,10 @@
       </div>
     }
   </div>
-
-    <button type="submit" class="btn-main my-2 ms-auto d-block"> Login @if (isLoding) { <i class="fas fa-spin fa-spinner"></i>}</button>
+<div class="d-flex align-items-center justify-content-end gap-4">
+  <a class="link-primary" routerLink="/forget">Forget Password</a>
+    <button type="submit" class="btn-main my-2d-block"> Login @if (isLoding) { <i class="fas fa-spin fa-spinner"></i>}</button>
+</div>
    @if (errMassage) {
      <p class="alert alert-danger p-0 text-center text-danger-emphasis m-0 w-50" >{{errMassage}}</p>
 

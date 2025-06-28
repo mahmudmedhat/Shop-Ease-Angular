@@ -5,10 +5,11 @@ import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { Category } from '../../core/services/category';
 import { Icategory } from '../../core/interface/icategory';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-home',
-  imports: [CarouselModule],
+  imports: [CarouselModule,RouterLink],
   templateUrl: './home.html',
   styleUrl: './home.scss'
 })
@@ -55,7 +56,7 @@ customOptions: OwlOptions = {
   /**-------------------------------------------- */
 private _Products=inject(Product)
 private _Category=inject(Category)
-productList:Iproduct[]=[]
+productList: Iproduct[] = [];
 categoryList:Icategory[]=[]
  getAllProductSub!:Subscription;
 ngOnInit(): void {

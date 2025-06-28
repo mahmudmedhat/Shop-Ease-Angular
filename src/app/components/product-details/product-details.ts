@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Product } from '../../core/services/product';
+import { Iproduct } from '../../core/interface/iproduct';
 
 @Component({
   selector: 'app-product-details',
@@ -6,6 +9,32 @@ import { Component } from '@angular/core';
   templateUrl: './product-details.html',
   styleUrl: './product-details.scss'
 })
-export class ProductDetails {
+export class ProductDetails implements OnInit{
+
+
+  private readonly _ActivatedRoute=inject(ActivatedRoute)
+  private readonly _Product=inject(Product)
+  getSingelProduct:Iproduct | null=null;
+
+ngOnInit(): void {
+  this._ActivatedRoute.paramMap.subscribe({
+    next:(idPram)=>{
+      // console.log(idPram.get("id"));
+     let idProduct=idPram.get("id");
+     this._Product.getSpecificProduct(idProduct).subscribe({
+      next:(res)=>{
+         this.getSingelProduct=res.data
+        //  console.log(this.getSingelProduct);
+
+      },
+
+      error:(err)=>{
+
+      }
+     })
+
+    }
+  })
+}
 
 }

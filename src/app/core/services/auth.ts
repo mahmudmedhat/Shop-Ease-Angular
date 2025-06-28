@@ -46,4 +46,18 @@ export class Auth {
     this.userData=null;
       this._Router.navigate(['./login'])
     }
+
+    setEmileVerify(data:object):Observable<any>{
+      return this._HttpClint.post(`${environment.baseUrl}/api/v1/auth/forgotPasswords`,data)
+    }
+
+
+        setCodeVerify(data:object):Observable<any>{
+      return this._HttpClint.post(`${environment.baseUrl}/api/v1/auth/verifyResetCode`,data)
+    }
+
+
+          setNewPassword(data:object):Observable<any>{
+      return this._HttpClint.put(`${environment.baseUrl}/api/v1/auth/verifyResetCode`,data)
+    }
 }

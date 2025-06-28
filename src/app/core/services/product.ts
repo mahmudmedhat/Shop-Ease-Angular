@@ -19,9 +19,9 @@ export class Product {
   }
 
 
-  getSpecificProduct(ID:string):Observable<any>
+  getSpecificProduct(ID:string | null):Observable<any>
   {
 
-    return this._HttpClient.get(`${environment.baseUrl}/api/v1/${ID}`);
+    return this._HttpClient.get(`${environment.baseUrl}/api/v1/products/${ID}`);
   }
 }

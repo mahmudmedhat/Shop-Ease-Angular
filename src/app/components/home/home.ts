@@ -1,11 +1,92 @@
-import { Component } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { Iproduct } from '../../core/interface/iproduct';
+import { Product } from '../../core/services/product';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Category } from '../../core/services/category';
+import { Icategory } from '../../core/interface/icategory';
+import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 
 @Component({
   selector: 'app-home',
-  imports: [],
+  imports: [CarouselModule],
   templateUrl: './home.html',
   styleUrl: './home.scss'
 })
-export class Home {
+export class Home implements OnInit,OnDestroy {
+customOptionsMain: OwlOptions = {
+    loop: true,
+    mouseDrag: true,
+    touchDrag: false,
+    autoplay:true,
+    autoplayTimeout:2000,
+    pullDrag: false,
+    dots: false,
+    navSpeed: 700,
+    navText: ['', ''],
+items:1,
+    nav: true
+  }
+customOptions: OwlOptions = {
+    loop: true,
+    mouseDrag: true,
+    touchDrag: false,
+    autoplay:true,
+    autoplayTimeout:2000,
+    pullDrag: false,
+    dots: false,
+    navSpeed: 700,
+    navText: ['', ''],
+    responsive: {
+      0: {
+        items: 1
+      },
+      400: {
+        items: 2
+      },
+      740: {
+        items: 3
+      },
+      940: {
+        items: 6
+      }
+    },
+    nav: true
+  }
+  /**-------------------------------------------- */
+private _Products=inject(Product)
+private _Category=inject(Category)
+productList:Iproduct[]=[]
+categoryList:Icategory[]=[]
+ getAllProductSub!:Subscription;
+ngOnInit(): void {
+ this.getAllProductSub= this._Products.getAllProduct().subscribe({
+    next:(res)=>{
+      console.log(res.data);
+      this.productList=res.data
 
+    },
+    error:(err)=>{
+      console.log(err);
+
+    }
+  })
+
+  /*-------------------------------------- */
+
+  this._Category.getAllCategory().subscribe({
+    next:(res)=>{
+      console.log(res.data);
+      this.categoryList=res.data;
+
+
+    },
+    error:(err)=>{
+      console.log(err);
+
+    }
+  })
+}
+ngOnDestroy(): void {
+  this.getAllProductSub?.unsubscribe();
+}
 }

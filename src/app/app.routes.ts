@@ -9,6 +9,7 @@ import { Products } from './components/products/products';
 import { Brands } from './components/brands/brands';
 import { Category } from './components/category/category';
 import { Cart } from './components/cart/cart';
+// import { authGuard } from './core/guards/auth-guard';
 
 export const routes: Routes = [
 
@@ -22,14 +23,14 @@ export const routes: Routes = [
     ]
   },
   {
-    path: "", component: LayoutBlanks, children: [
+    path: "", component: LayoutBlanks,  children: [
 
      { path: "", redirectTo:"home",pathMatch:"full"},
-      { path: "home", component: Home },
+      { path:"home", component: Home },
       { path: "product", component: Products },
       { path: "cart", component: Cart },
       { path: "category", component: Category },
-            { path: "brands", component: Brands },
+      { path: "brands", component: Brands },
 
 
 

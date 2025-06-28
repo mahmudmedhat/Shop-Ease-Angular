@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Auth } from '../../core/services/auth';
@@ -34,10 +34,16 @@ export class Login {
 
       this._Auth.setLoginForm(this.LoginForm.value).subscribe({
         next: (response) => {
+          console.log(response);
+
           // this.sucssesMsg=response.message
           if (response.message=='success') {
             setTimeout(() => {
               this.sucssesMsg=true
+              // seve tokan
+              localStorage.setItem("userToken",response.token);
+              // decoded tokan
+              this._Auth.seveUserData();
              this._router.navigate(['/home']);
 
             }, 2000);

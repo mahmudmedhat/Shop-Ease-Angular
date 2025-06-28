@@ -62,7 +62,6 @@ export class Register {
   rgisterSubmit(): void {
     this.isLoding = true;
     if (this.registerForm.valid) {
-      this.isLoding = true;
 
       this._AuthS.registerForm(this.registerForm.value).subscribe({
         next: (response) => {

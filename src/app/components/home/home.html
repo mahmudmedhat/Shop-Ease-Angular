@@ -65,7 +65,11 @@
 
   <h1>Products :</h1>
   <div class="row g-3">
-    @for (product of productList.slice(0,12) ; track product.id) {
+
+    <div class="d-flex justify-content-end">
+      <input [(ngModel)]="text" type="search" class="form-control w-25" placeholder="searech by name ">
+    </div>
+    @for (product of productList.slice(0,12) | search: text; track product.id) {
     <div class="col-md-2">
 
       <div class="product p-2 cr">
@@ -74,7 +78,7 @@
         <h4 class="h6">{{product.title.split(" ",2).join()}}</h4>
         <div class="d-flex justify-content-between align-items-center">
 
-          <span>{{product.price}}</span>
+          <span>{{product.price  | currency:'EGP'}}   </span>
 
           <div class="rating">
 

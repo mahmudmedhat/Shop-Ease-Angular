@@ -6,10 +6,13 @@ import { Category } from '../../core/services/category';
 import { Icategory } from '../../core/interface/icategory';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 import { RouterLink } from '@angular/router';
+import { CurrencyPipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { SearchPipe } from '../../core/pipes/search-pipe';
 
 @Component({
   selector: 'app-home',
-  imports: [CarouselModule,RouterLink],
+  imports: [CarouselModule,FormsModule,SearchPipe ,RouterLink,CurrencyPipe],
   templateUrl: './home.html',
   styleUrl: './home.scss'
 })
@@ -58,6 +61,7 @@ private _Products=inject(Product)
 private _Category=inject(Category)
 productList: Iproduct[] = [];
 categoryList:Icategory[]=[]
+text:string ='';
  getAllProductSub!:Subscription;
 ngOnInit(): void {
  this.getAllProductSub= this._Products.getAllProduct().subscribe({

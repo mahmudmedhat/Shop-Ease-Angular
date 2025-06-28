@@ -90,7 +90,7 @@
             <span class="text-muted">{{product.ratingsAverage}}</span>
           </div>
         </div>
-        <button class="btn-main d-block mx-auto w-75 ">Add to Cart</button>
+        <button (click)="addCart(product.id)" class="btn-main d-block mx-auto w-75 ">Add to Cart</button>
       </div>
 
     </div>

@@ -1,4 +1,4 @@
-import { Cart } from './../../core/services/cart';
+import { cart } from './../../core/services/cart';
 import { Subscription } from 'rxjs';
 import { Iproduct } from '../../core/interface/iproduct';
 import { Product } from '../../core/services/product';
@@ -60,7 +60,7 @@ customOptions: OwlOptions = {
   /**-------------------------------------------- */
 private _Products=inject(Product)
 private _Category=inject(Category)
-private _Cart=inject(Cart)
+private _Cart=inject(cart)
 productList: Iproduct[] = [];
 categoryList:Icategory[]=[]
 text:string ='';
@@ -68,7 +68,7 @@ text:string ='';
 ngOnInit(): void {
  this.getAllProductSub= this._Products.getAllProduct().subscribe({
     next:(res)=>{
-      console.log(res.data);
+
       this.productList=res.data
 
     },
@@ -82,7 +82,7 @@ ngOnInit(): void {
 
   this._Category.getAllCategory().subscribe({
     next:(res)=>{
-      console.log(res.data);
+
       this.categoryList=res.data;
 
 
@@ -101,7 +101,7 @@ ngOnDestroy(): void {
 addCart(id:string):void{
 this._Cart.addToCart(id).subscribe({
   next:(res)=>{
-    console.log(res);
+
 
   },
   error:(err)=>{

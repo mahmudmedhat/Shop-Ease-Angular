@@ -7,7 +7,7 @@ import { isPlatformBrowser } from '@angular/common';
 @Injectable({
   providedIn: 'root'
 })
-export class Cart {
+export class cart {
 
   private readonly _HttpClient = inject(HttpClient)
     private readonly _platformId = inject(PLATFORM_ID);
@@ -33,5 +33,27 @@ export class Cart {
 
 
     )
+  }
+
+  getProductCart():Observable<any>{
+   return this._HttpClient.get(`${environment.baseUrl}/api/v1/cart`,{headers:this.myHeader})
+  }
+
+
+  removerProductFromCart(id:string):Observable<any>{
+   return this._HttpClient.delete(`${environment.baseUrl}/api/v1/cart/${id}`,{headers:this.myHeader})
+  }
+
+  updatProductFromCart(id:string,productCount:number):Observable<any>{
+   return this._HttpClient.put(`${environment.baseUrl}/api/v1/cart/${id}`,
+    {
+
+        "count":productCount
+   },
+   {headers:this.myHeader})
+  }
+
+    clearCart():Observable<any>{
+   return this._HttpClient.delete(`${environment.baseUrl}/api/v1/cart`,{headers:this.myHeader})
   }
 }

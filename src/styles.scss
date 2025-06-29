@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import url("https://fonts.googleapis.com/css2?family=Encode+Sans+Expanded:wght@300&display=swap");
 
+
 :root {
   --main-color: #0aad0a;
   --secand-color: #2ecb07;
@@ -85,5 +86,23 @@ a:hover {
 }
 .btn-main:hover {
   background-color: #11bd11;
+}
+
+.CountLenght {
+  position: absolute;
+  top: -5px;
+  right: 0;
+  color: white;
+
+  height: 20px;
+  width: 20px;
+  background-color: #2ecb07;
+  border-radius: 50%;
+
+  display: flex;
+  justify-content: center; /* ✅ بدل justify-items */
+  align-items: center;     /* ✅ لإظهار الرقم في المنتصف */
+  font-size: 12px;          /* ⬅️ اختياري: تحكم في حجم الخط */
+  font-weight: bold;        /* ⬅️ اختياري: يبرز الرقم */
 }
 /* You can add global styles to this file, and also import other style files */

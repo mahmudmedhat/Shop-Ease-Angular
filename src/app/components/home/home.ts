@@ -10,6 +10,7 @@ import { RouterLink } from '@angular/router';
 import { CurrencyPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SearchPipe } from '../../core/pipes/search-pipe';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-home',
@@ -60,6 +61,7 @@ customOptions: OwlOptions = {
   /**-------------------------------------------- */
 private _Products=inject(Product)
 private _Category=inject(Category)
+private _ToastrService=inject(ToastrService)
 private _Cart=inject(cart)
 productList: Iproduct[] = [];
 categoryList:Icategory[]=[]
@@ -101,6 +103,7 @@ ngOnDestroy(): void {
 addCart(id:string):void{
 this._Cart.addToCart(id).subscribe({
   next:(res)=>{
+    this._ToastrService.success(res.message,'')
 
 
   },

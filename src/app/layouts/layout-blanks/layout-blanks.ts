@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { NavBarBlank } from "../../components/nav-bar-blank/nav-bar-blank";
 import { RouterOutlet } from '@angular/router';
 import { Footer } from "../../components/footer/footer";
@@ -9,6 +9,6 @@ import { Footer } from "../../components/footer/footer";
   templateUrl: './layout-blanks.html',
   styleUrl: './layout-blanks.scss'
 })
-export class LayoutBlanks {
+export class LayoutBlanks  {
 
 }

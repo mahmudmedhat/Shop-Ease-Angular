@@ -8,12 +8,12 @@
 
 //   if (isPlatformBrowser(platformId)) {
 //     const token = localStorage.getItem('userToken');
-//         console.log('Token:', token);
+
 //     if (token !== null) {
+
 //       return true;
 //     } else {
-//       _Router.navigate(['/login']);
-//       return false;
+//      return _Router.createUrlTree(['/login']);
 //     }
 //   } else {
 

@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { ICart } from '../../core/interface/icart';
 import { cart } from './../../core/services/cart';
 import { Component, inject, OnInit } from '@angular/core';
@@ -10,6 +11,7 @@ import { Component, inject, OnInit } from '@angular/core';
 })
 export class Cart implements OnInit {
   private readonly _cart = inject(cart)
+  private _ToastrService = inject(ToastrService)
   cartItems: ICart = {} as ICart
   ngOnInit(): void {
     this._cart.getProductCart().subscribe({
@@ -26,8 +28,9 @@ export class Cart implements OnInit {
   removeItem(id: string) {
     this._cart.removerProductFromCart(id).subscribe({
       next: (res) => {
-        this.cartItems = res.data
 
+        this.cartItems = res.data
+        this._ToastrService.success('Product removed from cart successfully!', 'Removed');
       },
       error: (err) => {
         console.log(err);
@@ -39,7 +42,9 @@ export class Cart implements OnInit {
     if (count > 0) {
       this._cart.updatProductFromCart(id, count).subscribe({
         next: (res) => {
+
           this.cartItems = res.data
+          this._ToastrService.success('Quantity updated successfully!', 'Updated');
 
         },
         error: (err) => {
@@ -54,17 +59,20 @@ export class Cart implements OnInit {
 
     this._cart.clearCart().subscribe({
       next: (res) => {
+        console.log(res);
 
-        if (res.message ==="success"){
-          this.cartItems={} as ICart
+        if (res.message === "success") {
+          this.cartItems = {} as ICart
+
+                  this._ToastrService.success('Cart cleared successfully!', 'Cleared');
         }
 
 
-  },
-  error: (err) => {
-      console.log(err);
+      },
+      error: (err) => {
+        console.log(err);
 
-}
-  })
- }
+      }
+    })
+  }
 }

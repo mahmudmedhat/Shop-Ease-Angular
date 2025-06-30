@@ -27,6 +27,7 @@
               "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css",
               "node_modules/ngx-owl-carousel-o/lib/styles/prebuilt-themes/owl.carousel.min.css",
                 "node_modules/ngx-owl-carousel-o/lib/styles/prebuilt-themes/owl.theme.default.min.css",
+                  "node_modules/ngx-toastr/toastr.css",
               "src/styles.scss"
             ],
             "scripts": ["./node_modules/bootstrap/dist/js/bootstrap.bundle.js"],

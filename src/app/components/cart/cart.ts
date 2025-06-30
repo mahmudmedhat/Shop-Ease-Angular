@@ -2,10 +2,11 @@ import { ToastrService } from 'ngx-toastr';
 import { ICart } from '../../core/interface/icart';
 import { cart } from './../../core/services/cart';
 import { Component, inject, OnInit } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './cart.html',
   styleUrl: './cart.scss'
 })

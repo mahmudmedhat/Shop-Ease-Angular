@@ -1,7 +1,7 @@
 <section class="bg-main-light rounded-4 shadow p-4 my-2 w-75 mx-auto">
   <h1 class="h3">Cart Shop</h1>
   <p class="text-main ">total praic: {{cartItems.totalCartPrice}} EGP</p>
-
+    <button (click)="clearAllCart()" class="btn btn-danger d-block ms-auto">  Clear All</button>
 
   @for (item of cartItems.products; track item.product._id) {
 
@@ -28,5 +28,5 @@
 
   <hr>
   }
-    <button (click)="clearAllCart()" class="btn btn-danger">  Clear All</button>
+    <button [routerLink]="['/order',cartItems._id]" class=" btn-main">  order now</button>
 </section>

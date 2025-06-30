@@ -19,7 +19,7 @@ ngOnInit(): void {
   this._Cart.getProductCart().subscribe({
     next:(res)=>{
       this.cartLenght=res.numOfCartItems
-      console.log(res);
+
 
     },
     error:(err)=>{

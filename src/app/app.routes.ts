@@ -11,20 +11,13 @@ import { Category } from './components/category/category';
 import { Cart } from './components/cart/cart';
 import { ProductDetails } from './components/product-details/product-details';
 import { ForgetPassword } from './components/forget-password/forget-password';
+import { AllOrders } from './components/all-orders/all-orders';
+import { Orders } from './components/orders/orders';
 // import { authGuard } from './core/guards/auth-guard';
 
 export const routes: Routes = [
 
-  {
-    path: "", component: LayoutAuth, children: [
 
-     { path: "", redirectTo:"login",pathMatch:"full"},
-     { path: "login", component: Login },
-      { path: "register", component: Register },
-      { path: "forget", component: ForgetPassword },
-
-    ]
-  },
   {
     path: "", component: LayoutBlanks,  children: [
 
@@ -36,7 +29,23 @@ export const routes: Routes = [
       { path: "brands", component: Brands },
       { path: "detailes/:id", component: ProductDetails },
 
+      { path: "order/:id", component: Orders },
+      { path: "allorders", component: AllOrders },
 
+
+
+    ]
+
+
+  },
+
+  {
+    path: "", component: LayoutAuth, children: [
+
+     { path: "", redirectTo:"login",pathMatch:"full"},
+     { path: "login", component: Login },
+      { path: "register", component: Register },
+      { path: "forget", component: ForgetPassword },
 
     ]
   },

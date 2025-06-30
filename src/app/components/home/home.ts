@@ -103,6 +103,8 @@ ngOnDestroy(): void {
 addCart(id:string):void{
 this._Cart.addToCart(id).subscribe({
   next:(res)=>{
+    console.log(res);
+
     this._ToastrService.success(res.message,'')
 
 

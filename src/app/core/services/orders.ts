@@ -24,7 +24,7 @@ export class orders {
 
 
   checkOut(id: string, data: object): Observable<any> {
-    return this._HttpClient.post(`${environment.baseUrl}/api/v1/orders/checkout-session/${id}?url=http://localhost:4200/`, {
+    return this._HttpClient.post(`${environment.baseUrl}/api/v1/orders/checkout-session/${id}?url=http://localhost:4200`, {
       "shippingAddress": data
     },
       {
@@ -32,4 +32,11 @@ export class orders {
       }
     )
   }
+
+
+    getAllOrders(id:string): Observable<any> {
+    return this._HttpClient.get(`${environment.baseUrl}/api/v1/orders/user/${id}`)
+
+
+      }
 }

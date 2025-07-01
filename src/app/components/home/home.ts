@@ -6,7 +6,7 @@ import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { Category } from '../../core/services/category';
 import { Icategory } from '../../core/interface/icategory';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CurrencyPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SearchPipe } from '../../core/pipes/search-pipe';
@@ -61,6 +61,7 @@ customOptions: OwlOptions = {
   /**-------------------------------------------- */
 private _Products=inject(Product)
 private _Category=inject(Category)
+private _Router=inject(Router)
 private _ToastrService=inject(ToastrService)
 private _Cart=inject(cart)
 productList: Iproduct[] = [];
@@ -100,7 +101,18 @@ ngOnDestroy(): void {
 }
 
 
+
 addCart(id:string):void{
+
+    const token = localStorage.getItem('userToken');
+
+  if (!token) {
+    this._ToastrService.warning('من فضلك قم بتسجيل الدخول أولاً', 'تحذير');
+    this._Router.navigate(['/login'])
+
+    return;
+  }
+
 this._Cart.addToCart(id).subscribe({
   next:(res)=>{
     console.log(res);

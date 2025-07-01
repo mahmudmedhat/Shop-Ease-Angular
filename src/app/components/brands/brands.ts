@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Ibrand } from '../../core/interface/ibrand';
+import { Category } from './../../core/services/category';
+import { Component, inject, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-brands',
@@ -6,6 +8,17 @@ import { Component } from '@angular/core';
   templateUrl: './brands.html',
   styleUrl: './brands.scss'
 })
-export class Brands {
+export class Brands implements OnInit {
+  private _Category=inject(Category)
+allbrands:Ibrand[]= {} as Ibrand[]
 
+ngOnInit(): void {
+  this._Category.getAllbrands().subscribe({
+    next:(res)=>{
+
+      this.allbrands=res.data
+
+    }
+  })
+}
 }

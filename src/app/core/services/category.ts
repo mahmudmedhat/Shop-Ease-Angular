@@ -8,14 +8,17 @@ import { environment } from '../environments/environment';
 })
 export class Category {
 
-  constructor(private _HttpClint:HttpClient) { }
+  constructor(private _HttpClint: HttpClient) { }
 
-  getAllCategory():Observable<any>
-  {
+  getAllCategory(): Observable<any> {
     return this._HttpClint.get(`${environment.baseUrl}/api/v1/categories`)
   }
-    getAllSpecifiecCategory(id:string):Observable<any>
-  {
+
+  getAllbrands(): Observable<any> {
+    return this._HttpClint.get(`${environment.baseUrl}/api/v1/brands`)
+  }
+  getAllSpecifiecCategory(id: string): Observable<any> {
     return this._HttpClint.get(`${environment.baseUrl}/api/v1/categories${id}`);
   }
+
 }

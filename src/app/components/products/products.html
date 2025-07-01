@@ -1,1 +1,42 @@
-<p>products works!</p>
+@if (productList.length >0 ) {
+
+  <section class="my-5">
+
+
+  <h1>Products :</h1>
+  <div class="row g-3">
+
+    <div class="d-flex justify-content-end">
+      <input [(ngModel)]="text" type="search" class="form-control w-25" placeholder="searech by name ">
+    </div>
+    @for (product of productList | search: text; track product.id) {
+    <div class="col-md-2">
+
+      <div class="product p-2 cr">
+        <img [routerLink]="['/detailes',product.id]" class="w-100" [src]="product.imageCover" [alt]="product.title">
+        <h3 class="small text-main">{{product.category.name}}</h3>
+        <h4 class="h6">{{product.title.split(" ",2).join()}}</h4>
+        <div class="d-flex justify-content-between align-items-center">
+
+          <span>{{product.price  | currency:'EGP'}}   </span>
+
+          <div class="rating">
+
+            @for (item of [1,2,3,4,5].slice(0,product.ratingsAverage); track $index) {
+            <span><i class="fas fa-star rating-color"></i></span>
+            }
+
+
+            <span class="text-muted">{{product.ratingsAverage}}</span>
+          </div>
+        </div>
+        <button (click)="addCart(product.id)" class="btn-main d-block mx-auto w-75 ">Add to Cart</button>
+      </div>
+
+    </div>
+    }
+  </div>
+
+</section>
+
+}

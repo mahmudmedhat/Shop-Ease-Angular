@@ -11,15 +11,10 @@ export class cart {
 
   private readonly _HttpClient = inject(HttpClient)
     private readonly _platformId = inject(PLATFORM_ID);
-  myHeader: any
+
 
     constructor() {
-    if (isPlatformBrowser(this._platformId)) {
-      const token = localStorage.getItem('userToken');
-      this.myHeader = { token };
-    } else {
-      this.myHeader = {};
-    }
+
   }
 
   addToCart(id: string): Observable<any> {
@@ -27,21 +22,19 @@ export class cart {
       {
         "productId": id
       },
-      {
-        headers: this.myHeader
-      }
+
 
 
     )
   }
 
   getProductCart():Observable<any>{
-   return this._HttpClient.get(`${environment.baseUrl}/api/v1/cart`,{headers:this.myHeader})
+   return this._HttpClient.get(`${environment.baseUrl}/api/v1/cart`)
   }
 
 
   removerProductFromCart(id:string):Observable<any>{
-   return this._HttpClient.delete(`${environment.baseUrl}/api/v1/cart/${id}`,{headers:this.myHeader})
+   return this._HttpClient.delete(`${environment.baseUrl}/api/v1/cart/${id}`)
   }
 
   updatProductFromCart(id:string,productCount:number):Observable<any>{
@@ -50,10 +43,10 @@ export class cart {
 
         "count":productCount
    },
-   {headers:this.myHeader})
+   )
   }
 
     clearCart():Observable<any>{
-   return this._HttpClient.delete(`${environment.baseUrl}/api/v1/cart`,{headers:this.myHeader})
+   return this._HttpClient.delete(`${environment.baseUrl}/api/v1/cart`)
   }
 }

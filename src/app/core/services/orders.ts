@@ -27,9 +27,7 @@ export class orders {
     return this._HttpClient.post(`${environment.baseUrl}/api/v1/orders/checkout-session/${id}?url=http://localhost:4200`, {
       "shippingAddress": data
     },
-      {
-        headers: this.myHeader
-      }
+
     )
   }
 

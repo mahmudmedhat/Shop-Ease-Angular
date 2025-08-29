@@ -11,33 +11,36 @@ import { CurrencyPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SearchPipe } from '../../core/pipes/search-pipe';
 import { ToastrService } from 'ngx-toastr';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-home',
-  imports: [CarouselModule,FormsModule,SearchPipe ,RouterLink,CurrencyPipe],
+  imports: [CarouselModule, FormsModule, SearchPipe, RouterLink, CurrencyPipe],
   templateUrl: './home.html',
   styleUrl: './home.scss'
 })
-export class Home implements OnInit,OnDestroy {
-customOptionsMain: OwlOptions = {
+export class Home implements OnInit, OnDestroy {
+  customOptionsMain: OwlOptions = {
     loop: true,
+    rtl:true,
     mouseDrag: true,
     touchDrag: false,
-    autoplay:true,
-    autoplayTimeout:2000,
+    autoplay: true,
+    autoplayTimeout: 2000,
     pullDrag: false,
     dots: false,
     navSpeed: 700,
     navText: ['', ''],
-items:1,
+    items: 1,
     nav: true
   }
-customOptions: OwlOptions = {
+  customOptions: OwlOptions = {
     loop: true,
     mouseDrag: true,
+    rtl:true,
     touchDrag: false,
-    autoplay:true,
-    autoplayTimeout:2000,
+    autoplay: true,
+    autoplayTimeout: 2000,
     pullDrag: false,
     dots: false,
     navSpeed: 700,
@@ -59,72 +62,68 @@ customOptions: OwlOptions = {
     nav: true
   }
   /**-------------------------------------------- */
-private _Products=inject(Product)
-private _Category=inject(Category)
-private _Router=inject(Router)
-private _ToastrService=inject(ToastrService)
-private _Cart=inject(cart)
-productList: Iproduct[] = [];
-categoryList:Icategory[]=[]
-text:string ='';
- getAllProductSub!:Subscription;
-ngOnInit(): void {
- this.getAllProductSub= this._Products.getAllProduct().subscribe({
-    next:(res)=>{
+  private _Products = inject(Product)
+  private _Category = inject(Category)
+  private _Router = inject(Router)
+  private _ToastrService = inject(ToastrService)
+  private _NgxSpinnerService = inject(NgxSpinnerService)
+  private _Cart = inject(cart)
+  productList: Iproduct[] = [];
+  categoryList: Icategory[] = []
+  text: string = '';
+  getAllProductSub!: Subscription;
+  ngOnInit(): void {
+    this._NgxSpinnerService.show()
+    this.getAllProductSub = this._Products.getAllProduct().subscribe({
+      next: (res) => {
+        this._NgxSpinnerService.hide()
+        this.productList = res.data
 
-      this.productList=res.data
+      },
 
-    },
-    error:(err)=>{
-      console.log(err);
+    })
 
-    }
-  })
+    /*-------------------------------------- */
 
-  /*-------------------------------------- */
+    this._Category.getAllCategory().subscribe({
+      next: (res) => {
 
-  this._Category.getAllCategory().subscribe({
-    next:(res)=>{
-
-      this.categoryList=res.data;
+        this.categoryList = res.data;
 
 
-    },
-    error:(err)=>{
-      console.log(err);
+      },
 
-    }
-  })
-}
-ngOnDestroy(): void {
-  this.getAllProductSub?.unsubscribe();
-}
+    })
+  }
+  ngOnDestroy(): void {
+    this.getAllProductSub?.unsubscribe();
+  }
 
 
 
-addCart(id:string):void{
+  addCart(id: string): void {
 
     const token = localStorage.getItem('userToken');
 
-  if (!token) {
-    this._ToastrService.warning('من فضلك قم بتسجيل الدخول أولاً', 'تحذير');
-    this._Router.navigate(['/login'])
+    if (!token) {
+      this._ToastrService.warning('من فضلك قم بتسجيل الدخول أولاً', 'تحذير');
+      this._Router.navigate(['/login'])
 
-    return;
+      return;
+    }
+
+    this._Cart.addToCart(id).subscribe({
+      next: (res) => {
+        console.log(res);
+
+        this._ToastrService.success(res.message, '')
+        this._Cart.CartItems.set(res.numOfCartItems)
+
+console.log(this._Cart.CartItems);
+
+
+      },
+
+    })
   }
-
-this._Cart.addToCart(id).subscribe({
-  next:(res)=>{
-    console.log(res);
-
-    this._ToastrService.success(res.message,'')
-
-
-  },
-  error:(err)=>{
-    console.log(err);
-
-  }
-})
-}
 }

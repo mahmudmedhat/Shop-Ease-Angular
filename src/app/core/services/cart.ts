@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, PLATFORM_ID, inject } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Injectable, PLATFORM_ID, WritableSignal, inject, signal } from '@angular/core';
+import { BehaviorSubject, Observable, single } from 'rxjs';
 import { environment } from '../environments/environment';
 import { isPlatformBrowser } from '@angular/common';
 
@@ -10,12 +10,15 @@ import { isPlatformBrowser } from '@angular/common';
 export class cart {
 
   private readonly _HttpClient = inject(HttpClient)
-    private readonly _platformId = inject(PLATFORM_ID);
+  private readonly _platformId = inject(PLATFORM_ID);
 
 
-    constructor() {
+  constructor() {
+
 
   }
+  CartItems:WritableSignal<number> = signal(0)
+
 
   addToCart(id: string): Observable<any> {
     return this._HttpClient.post(`${environment.baseUrl}/api/v1/cart`,
@@ -24,29 +27,28 @@ export class cart {
       },
 
 
-
     )
   }
 
-  getProductCart():Observable<any>{
-   return this._HttpClient.get(`${environment.baseUrl}/api/v1/cart`)
+  getProductCart(): Observable<any> {
+    return this._HttpClient.get(`${environment.baseUrl}/api/v1/cart`)
   }
 
 
-  removerProductFromCart(id:string):Observable<any>{
-   return this._HttpClient.delete(`${environment.baseUrl}/api/v1/cart/${id}`)
+  removerProductFromCart(id: string): Observable<any> {
+    return this._HttpClient.delete(`${environment.baseUrl}/api/v1/cart/${id}`)
   }
 
-  updatProductFromCart(id:string,productCount:number):Observable<any>{
-   return this._HttpClient.put(`${environment.baseUrl}/api/v1/cart/${id}`,
-    {
+  updatProductFromCart(id: string, productCount: number): Observable<any> {
+    return this._HttpClient.put(`${environment.baseUrl}/api/v1/cart/${id}`,
+      {
 
-        "count":productCount
-   },
-   )
+        "count": productCount
+      },
+    )
   }
 
-    clearCart():Observable<any>{
-   return this._HttpClient.delete(`${environment.baseUrl}/api/v1/cart`)
+  clearCart(): Observable<any> {
+    return this._HttpClient.delete(`${environment.baseUrl}/api/v1/cart`)
   }
 }

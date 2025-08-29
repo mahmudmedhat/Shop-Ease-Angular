@@ -5,34 +5,47 @@
       aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
+    <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
       <ul class="navbar-nav">
 
         <li class="nav-item">
-          <a class="nav-link" routerLinkActive="active-link" routerLink="/home">Home</a>
+          <a class="nav-link" routerLinkActive="active-link" routerLink="/home">{{"navBar.home" | translate}}</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLinkActive="active-link" routerLink="product">Product</a>
+          <a class="nav-link" routerLinkActive="active-link" routerLink="product">{{"navBar.product" | translate}}</a>
         </li>
+     <li class="nav-item">
+          <a class="nav-link" routerLinkActive="active-link" routerLink="brands">{{"navBar.brands" | translate}}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLinkActive="active-link" routerLink="allorders">{{"navBar.orders" | translate}}</a>
 
-        <li class="nav-item">
-          <a class="nav-link" routerLinkActive="active-link" routerLink="brands">Brands</a>
-        </li>
-                <li class="nav-item">
-          <a class="nav-link" routerLinkActive="active-link" routerLink="allorders">Orders</a>
-        </li>
 
       </ul>
 
 
-      <ul class="navbar-nav ms-auto ">
-  <li class="nav-item position-relative ">
+      <ul class="navbar-nav  ">
+
+
+         <li class="nav-itently used
+
+         @deprecated — use getCurrentLang()em dropdown">
+          <a class="nav-link dropdown-toggle"  role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            {{"navBar.lang" | translate}}
+          </a>
+          <ul class="dropdown-menu">
+            <li  [class.bg-info]="_TranslateService.currentLang =='en'" (click)="change('en')" ><a class="dropdown-item cr" >EN</a></li>
+            <li [class.bg-info]="_TranslateService.currentLang =='ar'"><a  (click)="change('ar')"  class="dropdown-item cr" > AR</a></li>
+
+          </ul>
+        </li>
+  <li class="nav-item  ">
           <a class="nav-link d-flex justify-content-center align-items-center " routerLinkActive="text-success" routerLink="cart">
-            <i class="fas fa-cart-plus fs-3"></i>
+            <i class="fa-solid fa-cart-shopping fa-2xl"></i>
+            <span class="badge bg-info"> {{cartLenght()}}</span>
 
           </a>
 
-             <span class="CountLenght">{{cartLenght}}</span>
         </li>
 
         <li class="nav-item">
@@ -47,7 +60,7 @@
           <a class="nav-link" ><i class="fab fa-twitter"></i></a>
         </li>
       <li class="nav-item">
-          <a class="nav-link cr" (click)="_Auth.logOut()">Sing Out</a>
+          <a class="nav-link cr" (click)="_Auth.logOut()">{{"navBar.sign Out" | translate}}</a>
 
       </ul>
     </div>

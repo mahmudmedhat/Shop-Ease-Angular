@@ -32,6 +32,8 @@ export class Cart implements OnInit {
 
         this.cartItems = res.data
         this._ToastrService.success('Product removed from cart successfully!', 'Removed');
+        this._cart.CartItems.set(res.numOfCartItems)
+
       },
       error: (err) => {
         console.log(err);
@@ -64,8 +66,9 @@ export class Cart implements OnInit {
 
         if (res.message === "success") {
           this.cartItems = {} as ICart
+          this._cart.CartItems.set(res.numOfCartItems)
 
-                  this._ToastrService.success('Cart cleared successfully!', 'Cleared');
+          this._ToastrService.success('Cart cleared successfully!', 'Cleared');
         }
 
 

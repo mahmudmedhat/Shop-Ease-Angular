@@ -1,3 +1,4 @@
+import { log } from 'node:console';
 import { LayoutAuth } from './layouts/layout-auth/layout-auth';
 import { Routes } from '@angular/router';
 import { LayoutBlanks } from './layouts/layout-blanks/layout-blanks';
@@ -13,6 +14,7 @@ import { ProductDetails } from './components/product-details/product-details';
 import { ForgetPassword } from './components/forget-password/forget-password';
 import { AllOrders } from './components/all-orders/all-orders';
 import { Orders } from './components/orders/orders';
+import { authGuard } from './core/guards/auth-guard';
 // import { authGuard } from './core/guards/auth-guard';
 
 export const routes: Routes = [
@@ -23,14 +25,14 @@ export const routes: Routes = [
 
      { path: "", redirectTo:"home",pathMatch:"full"},
       { path:"home", component: Home },
-      { path: "product", component: Products },
-      { path: "cart", component: Cart },
+      { path: "product", loadComponent:()=>import('./components/products/products').then((c)=>c.Products) },
+      { path: "cart", component: Cart, canActivate:[authGuard] },   // ✅ محمي
       { path: "category", component: Category },
       { path: "brands", component: Brands },
       { path: "detailes/:id", component: ProductDetails },
 
-      { path: "order/:id", component: Orders },
-      { path: "allorders", component: AllOrders },
+      { path: "order/:id", component: Orders, canActivate:[authGuard] },   // ✅ محمي
+      { path: "allorders", component: AllOrders, canActivate:[authGuard] },
 
 
 

@@ -1,6 +1,10 @@
+import { AllOrders } from './../all-orders/all-orders';
+import { NgxSpinner, NgxSpinnerService } from 'ngx-spinner';
 import { Ibrand } from '../../core/interface/ibrand';
 import { Category } from './../../core/services/category';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-brands',
@@ -8,17 +12,22 @@ import { Component, inject, OnInit } from '@angular/core';
   templateUrl: './brands.html',
   styleUrl: './brands.scss'
 })
-export class Brands implements OnInit {
+export class Brands  {
   private _Category=inject(Category)
-allbrands:Ibrand[]= {} as Ibrand[]
 
-ngOnInit(): void {
-  this._Category.getAllbrands().subscribe({
-    next:(res)=>{
+allbrands=toSignal(this._Category.getAllbrands(),{initialValue:[] as Ibrand[]})
 
-      this.allbrands=res.data
 
-    }
-  })
-}
+
+// ngOnInit(): void {
+// this._NgxSpinner.show()
+//   this._Category.getAllbrands().subscribe({
+//     next:(res)=>{
+//  this._NgxSpinner.hide()
+//       this.allbrands=res.data
+
+
+//     }
+//   })
+// }
 }

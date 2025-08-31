@@ -15,9 +15,8 @@ import { provideTranslateService} from '@ngx-translate/core';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader();
+  return new TranslateHttpLoader(); // بدون prefix/suffix هنا
 }
-
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
@@ -32,7 +31,7 @@ export const appConfig: ApplicationConfig = {
 
     ), // هنا تزود Config لو عايز
     provideTranslateService({
-      lang: "en",
+      lang:"en",
       fallbackLang: "en",
       loader: provideTranslateHttpLoader({
         prefix: './assets/i18n/',

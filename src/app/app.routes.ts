@@ -19,37 +19,37 @@ import { authGuard } from './core/guards/auth-guard';
 
 export const routes: Routes = [
 
-
   {
-    path: "", component: LayoutBlanks,  children: [
+    path: "",
+    component: LayoutBlanks,
+    children: [
+      { path: "", redirectTo: "home", pathMatch: "full" },
+      { path: "home", component: Home },
 
-     { path: "", redirectTo:"home",pathMatch:"full"},
-      { path:"home", component: Home },
-      { path: "product", loadComponent:()=>import('./components/products/products').then((c)=>c.Products) },
-      { path: "cart", component: Cart, canActivate:[authGuard] },   // ✅ محمي
-      { path: "category", component: Category },
-      { path: "brands", component: Brands },
-      { path: "detailes/:id", component: ProductDetails },
+      // ✅ تحميل كسول
+      { path: "product", loadComponent: () => import('./components/products/products').then(c => c.Products) },
+      { path: "cart", loadComponent: () => import('./components/cart/cart').then(c => c.Cart) },
+      { path: "category", loadComponent: () => import('./components/category/category').then(c => c.Category) },
+      { path: "brands", loadComponent: () => import('./components/brands/brands').then(c => c.Brands) },
+      { path: "detailes/:id", loadComponent: () => import('./components/product-details/product-details').then(c => c.ProductDetails) },
 
-      { path: "order/:id", component: Orders, canActivate:[authGuard] },   // ✅ محمي
-      { path: "allorders", component: AllOrders, canActivate:[authGuard] },
-
-
-
+      // ✅ برضه تحميل كسول
+      { path: "order/:id", loadComponent: () => import('./components/orders/orders').then(c => c.Orders) },
+      { path: "allorders", loadComponent: () => import('./components/all-orders/all-orders').then(c => c.AllOrders) },
     ]
-
-
   },
 
   {
-    path: "", component: LayoutAuth, children: [
-
-     { path: "", redirectTo:"login",pathMatch:"full"},
-     { path: "login", component: Login },
-      { path: "register", component: Register },
-      { path: "forget", component: ForgetPassword },
-
+    path: "",
+    component: LayoutAuth,
+    children: [
+      { path: "", redirectTo: "login", pathMatch: "full" },
+      { path: "login", loadComponent: () => import('./components/login/login').then(c => c.Login) },
+      { path: "register", loadComponent: () => import('./components/register/register').then(c => c.Register) },
+      { path: "forget", loadComponent: () => import('./components/forget-password/forget-password').then(c => c.ForgetPassword) },
     ]
   },
+
   { path: "**", component: NotFound }
 ];
+
